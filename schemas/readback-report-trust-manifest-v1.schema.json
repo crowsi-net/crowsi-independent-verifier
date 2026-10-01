@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "crowsi://independent-verifier/readback-report-trust-manifest/v1",
+  "title": "Crowsi Independent Readback Report Trust Manifest v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "manifest_id",
+    "intended_use",
+    "security_domain",
+    "deployment_id",
+    "resource_uri",
+    "canonical_profile",
+    "report_schema",
+    "signing_input",
+    "report_verifier"
+  ],
+  "properties": {
+    "schema": {
+      "const": "crowsi://independent-verifier/readback-report-trust-manifest/v1"
+    },
+    "manifest_id": { "$ref": "#/$defs/identifier" },
+    "intended_use": { "const": "conformance-only" },
+    "security_domain": { "$ref": "#/$defs/identifier" },
+    "deployment_id": { "$ref": "#/$defs/identifier" },
+    "resource_uri": {
+      "type": "string",
+      "const": "host://device-a/firewall"
+    },
+    "canonical_profile": {
+      "const": "crowsi-signed-readback-canonical-v1"
+    },
+    "report_schema": { "const": "crowsi.signed-readback-report.v1" },
+    "signing_input": { "const": "sha256-digest-bytes" },
+    "report_verifier": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "algorithm",
+        "key_id",
+        "role",
+        "scope_type",
+        "scope_value",
+        "public_key_encoding",
+        "public_key"
+      ],
+      "properties": {
+        "algorithm": { "const": "Ed25519" },
+        "key_id": { "$ref": "#/$defs/identifier" },
+        "role": { "const": "independent-readback-report" },
+        "scope_type": { "const": "exact-resource" },
+        "scope_value": {
+          "type": "string",
+          "const": "host://device-a/firewall"
+        },
+        "public_key_encoding": { "const": "base64url-no-pad" },
+        "public_key": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_-]{43}$"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9._:-]{0,127}$"
+    }
+  }
+}

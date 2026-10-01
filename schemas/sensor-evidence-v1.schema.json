@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://crowsi.org/schemas/sensor-evidence-v1.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema", "observation_id", "sensor_id", "security_domain", "deployment_id", "resource_uri",
+    "command_id", "kind", "assertion", "resource_version", "fence",
+    "provenance", "observed_at_ms", "expires_at_ms"
+  ],
+  "properties": {
+    "schema": { "const": "crowsi.sensor-evidence.v1" },
+    "observation_id": { "type": "string", "minLength": 1, "maxLength": 256 },
+    "sensor_id": { "type": "string", "minLength": 1, "maxLength": 256 },
+    "security_domain": { "type": "string", "minLength": 1, "maxLength": 256 },
+    "deployment_id": { "type": "string", "minLength": 1, "maxLength": 256 },
+    "resource_uri": { "type": "string", "minLength": 1, "maxLength": 256 },
+    "command_id": { "type": ["string", "null"], "maxLength": 256 },
+    "kind": { "enum": ["state-readback", "intrusion-assessment"] },
+    "assertion": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "value"],
+          "properties": {
+            "type": { "const": "state" },
+            "value": { "enum": ["connected", "isolated", "revoked", "indeterminate"] }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type"],
+          "properties": { "type": { "const": "compromise-detected" } }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type"],
+          "properties": { "type": { "const": "no-compromise-observed" } }
+        }
+      ]
+    },
+    "resource_version": {
+      "type": ["string", "null"],
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "fence": { "type": ["integer", "null"], "minimum": 1 },
+    "provenance": {
+      "enum": ["host-agent", "network-probe", "network-ids", "provider-readback"]
+    },
+    "observed_at_ms": { "type": "integer" },
+    "expires_at_ms": { "type": "integer" }
+  }
+}

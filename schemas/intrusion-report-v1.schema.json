@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://crowsi.org/schemas/intrusion-report-v1.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema", "state", "reason_code", "accepted_evidence", "accepted_evidence_digests",
+    "rejected_evidence", "independent_groups", "evaluated_at_ms"
+  ],
+  "properties": {
+    "schema": { "const": "crowsi.intrusion-report.v1" },
+    "state": { "enum": ["detected", "clear", "unknown"] },
+    "reason_code": { "type": "string" },
+    "accepted_evidence": { "type": "integer", "minimum": 0 },
+    "accepted_evidence_digests": {
+      "type": "array",
+      "maxItems": 64,
+      "items": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+    },
+    "rejected_evidence": { "type": "integer", "minimum": 0 },
+    "independent_groups": { "type": "integer", "minimum": 0 },
+    "evaluated_at_ms": { "type": "integer" }
+  }
+}

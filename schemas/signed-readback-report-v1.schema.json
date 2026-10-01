@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://crowsi.org/schemas/signed-readback-report-v1.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema", "command_id", "security_domain", "deployment_id",
+    "resource_uri", "expected_state", "expected_resource_version",
+    "minimum_fence", "required_quorum", "report", "expires_at_ms", "signed"
+  ],
+  "properties": {
+    "schema": { "const": "crowsi.signed-readback-report.v1" },
+    "command_id": { "type": "string", "minLength": 1, "maxLength": 256 },
+    "security_domain": { "type": "string", "minLength": 1, "maxLength": 256 },
+    "deployment_id": { "type": "string", "minLength": 1, "maxLength": 256 },
+    "resource_uri": { "type": "string", "minLength": 1, "maxLength": 256 },
+    "expected_state": {
+      "enum": ["connected", "isolated", "revoked", "indeterminate"]
+    },
+    "expected_resource_version": {
+      "type": "string", "minLength": 1, "maxLength": 256
+    },
+    "minimum_fence": { "type": "integer", "minimum": 1 },
+    "required_quorum": { "type": "integer", "minimum": 2, "maximum": 65535 },
+    "report": { "$ref": "readback-report-v1.schema.json" },
+    "expires_at_ms": { "type": "integer" },
+    "signed": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["algorithm", "key_id", "digest", "signature"],
+      "properties": {
+        "algorithm": { "const": "Ed25519" },
+        "key_id": { "type": "string", "minLength": 1, "maxLength": 256 },
+        "digest": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "signature": {
+          "type": "string",
+          "minLength": 86,
+          "maxLength": 86,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        }
+      }
+    }
+  }
+}

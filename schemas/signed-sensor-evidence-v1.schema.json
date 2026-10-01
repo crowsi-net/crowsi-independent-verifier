@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://crowsi.org/schemas/signed-sensor-evidence-v1.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["evidence", "key_id", "algorithm", "signature"],
+  "properties": {
+    "evidence": { "$ref": "sensor-evidence-v1.schema.json" },
+    "key_id": { "type": "string", "minLength": 1, "maxLength": 256 },
+    "algorithm": { "const": "Ed25519" },
+    "signature": { "type": "string", "minLength": 86, "maxLength": 86 }
+  }
+}

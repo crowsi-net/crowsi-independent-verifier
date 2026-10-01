@@ -1,0 +1,31 @@
+{
+  "schema": "crowsi.signed-readback-report.v1",
+  "command_id": "cmd-isolate",
+  "security_domain": "domain:personal",
+  "deployment_id": "deployment.personal.1",
+  "resource_uri": "host://device-a/firewall",
+  "expected_state": "isolated",
+  "expected_resource_version": "rv:crowsi-enforcer-host-firewall:9",
+  "minimum_fence": 9,
+  "required_quorum": 2,
+  "report": {
+    "schema": "crowsi.readback-report.v1",
+    "state": "verified",
+    "reason_code": "independent-quorum",
+    "accepted_evidence": 2,
+    "accepted_evidence_digests": [
+      "sha256:2acdb166775fe24b821dc63f11c2874bb547317b126f17ce5da402d9260326a8",
+      "sha256:c68a56e63e2672bdb4e0589e9acdc73b464020c315d0767d8a88da8aa13e4cb9"
+    ],
+    "rejected_evidence": 0,
+    "independent_groups": 2,
+    "evaluated_at_ms": 1800000000000
+  },
+  "expires_at_ms": 1800000030000,
+  "signed": {
+    "algorithm": "Ed25519",
+    "key_id": "report-key.1",
+    "digest": "sha256:07573a4f78295418812a8ee3cca8a1be9dec48ddc31fbeca4a566ec428ea4527",
+    "signature": "NXA6cvl3EbFZ71eaM4XMMehnPEVwFbRYVZ-a60n_HCJIe59kPPLDoDrCG4eKIOkVD52VreyEZGw6cqEtP_vyAQ"
+  }
+}

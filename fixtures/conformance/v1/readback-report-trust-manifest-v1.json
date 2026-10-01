@@ -1,0 +1,20 @@
+{
+  "schema": "crowsi://independent-verifier/readback-report-trust-manifest/v1",
+  "manifest_id": "crowsi-readback-report-conformance.1",
+  "intended_use": "conformance-only",
+  "security_domain": "domain:personal",
+  "deployment_id": "deployment.personal.1",
+  "resource_uri": "host://device-a/firewall",
+  "canonical_profile": "crowsi-signed-readback-canonical-v1",
+  "report_schema": "crowsi.signed-readback-report.v1",
+  "signing_input": "sha256-digest-bytes",
+  "report_verifier": {
+    "algorithm": "Ed25519",
+    "key_id": "report-key.1",
+    "role": "independent-readback-report",
+    "scope_type": "exact-resource",
+    "scope_value": "host://device-a/firewall",
+    "public_key_encoding": "base64url-no-pad",
+    "public_key": "-VxqXf8DH6x7GmpUtmEMrrg7Offopmvhb_X6pKUR7S0"
+  }
+}
